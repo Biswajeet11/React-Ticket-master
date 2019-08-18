@@ -29,7 +29,7 @@ class EmployeeShow extends React.Component {
         return (
             <div>
                 <Employee name={name} email={email} />
-                <Link to='/customers'>Back</Link>
+                <Link to='/employees'>Back</Link>
                 <br/> 
             </div>
         )
