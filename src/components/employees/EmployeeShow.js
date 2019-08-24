@@ -25,7 +25,7 @@ class EmployeeShow extends React.Component {
             })
     }
     render() {
-        const { name, email, department } = this.state
+        const { name, email } = this.state
         return (
             <div>
                 <Employee name={name} email={email} />

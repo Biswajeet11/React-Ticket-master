@@ -10,7 +10,6 @@ class CustomerList extends React.Component {
             isLoading: true
         }
         this.handleChange = this.handleChange.bind(this)
-
     }
 
     componentDidMount() {
@@ -47,9 +46,7 @@ class CustomerList extends React.Component {
         }
     }
 
-    handleSubmit(formData) {
 
-    }
 
     render() {
         return (
@@ -74,7 +71,7 @@ class CustomerList extends React.Component {
                                         return (
                                             <tr key={customer._id}>
                                                 <td>{index + 1}</td>
-                                                <td>{customer.name}</td>
+                                                <td><Link to={`/customers/${customer._id}`}>{customer.name}</Link></td>
                                                 <td>{customer.email}</td>
                                                 <td>{customer.mobile}</td>
                                             </tr>

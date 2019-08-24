@@ -1,20 +1,23 @@
 import React from 'react'
-class CustomerForm extends React.Component {
+
+export default class CustomerForm extends React.Component {
     constructor(props) {
+        console.log(props.customer)
+        console.log('constructor - customer form')
         super(props)
         this.state = {
-            name: '',
-            email: '',
-            mobile: ''
+            name: props.customer ? props.customer.name : '',
+            email: props.customer ? props.customer.email : '',
+            mobile: props.customer ? props.customer.mobile : ''
         }
-
     }
-
     handleChange = e => {
-        this.setState({ [e.target.name]: e.target.value })
-
+        this.setState({
+            [e.target.name]: e.target.value
+        })
     }
     handleSubmit = e => {
+        console.log('handle submit - customer form')
         e.preventDefault()
         const formData = {
             name: this.state.name,
@@ -24,20 +27,28 @@ class CustomerForm extends React.Component {
         this.props.handleSubmit(formData)
     }
     render() {
-        console.log(this.props)
+        console.log('render - customer form')
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="name"> Name</label>
-                    <input type="text" value={this.state.name} name="name" id="name" placeholder="name" onChange={this.handleChange} />
-                    <label htmlFor="email"> Email </label>
-                    <input type="email" value={this.state.email} name="email" id="email" placeholder="email" onChange={this.handleChange} />
-                    <label htmlFor="mobile"> Mobile</label>
-                    <input type="text" value={this.state.mobile} name="mobile" id="mobile" placeholder="mobile" onChange={this.handleChange} />
-                    <button type="submit">Submit</button>
+                    <label htmlFor="name">
+                        name
+                    </label>
+                    <input type="text" value={this.state.name} name="name" onChange={this.handleChange} id="name" />
+                    <br />
+                    <label htmlFor="email">
+                        email
+                    </label>
+                    <input type="text" value={this.state.email} name="email" onChange={this.handleChange} id="email" />
+                    <br />
+                    <label htmlFor="mobile">
+                        mobile
+                    </label>
+                    <input type="text" value={this.state.mobile} name="mobile" onChange={this.handleChange} id="mobile" />
+                    <br />
+                    <input type="submit" />
                 </form>
             </div>
         )
     }
 }
-export default CustomerForm
