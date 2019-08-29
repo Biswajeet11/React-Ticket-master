@@ -28,6 +28,7 @@ class EmployeeNew extends React.Component {
     }
 
     render() {
+        console.log("employe new....")
         return (
             <div>
                 <br />

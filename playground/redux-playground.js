@@ -16,6 +16,10 @@ const configStore = () => {
                     return this.state
                 case 'RESET':
                     this.state.count = 0
+                    return this.state
+                case 'INCREMENT_BY':
+                    this.state.count += action.payload
+                    return this.state
                 default:
                     return this.state
             }
@@ -41,11 +45,17 @@ const reset = () => {
     return { type: 'RESET' }
 }
 
+const incrementBy = (value) => {
+    return { type: 'INCREMENT_BY', payload: value }
+}
+
 store.dispatch(increment())
+store.dispatch(increment)
 
 console.log(store.getState())
 
 store.dispatch(decrement())
+store.dispatch(decrement)
 
 console.log(store.getState())
 store.dispatch(reset())
@@ -53,3 +63,5 @@ console.log(store.getState())
 store.dispatch(increment())
 console.log(store.getState())
 
+store.dispatch(incrementBy(5))
+console.log(store.getState())

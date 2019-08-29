@@ -8,6 +8,7 @@ import EmployeeNew from './components/employees/New';
 import EmployeeShow from './components/employees/EmployeeShow';
 import CustomerEdit from './components/customer/Edit';
 import CustomerShow from './components/customer/Show';
+import TicketForm from './components/tickets/Ticket-form';
 
 
 function App() {
@@ -18,8 +19,8 @@ function App() {
         <Link to="/">Home</Link> |
         <Link to="/customers">Customers</Link> |
         <Link to="/departments">Departments</Link> |
-        <Link to="/employees">Employees</Link>
-
+        <Link to="/employees">Employees</Link> |
+        <Link to="/tickets">Tickets</Link>
 
         <Switch>
           <Route path="/customers" component={CustomerList} exact={true} />
@@ -28,9 +29,10 @@ function App() {
           <Route path="/customers/:id" component={CustomerShow} />
           <Route path="/departments" component={DepartmentList} />
           <Route path="/employees" component={EmployeesList} />
+          <Route path="/employees/:id" component={EmployeeShow} />
           <Route path="/employees/new" component={EmployeeNew} />
+          <Route path="/tickets" component={TicketForm} />
         </Switch>
-
 
 
       </div>

@@ -29,7 +29,7 @@ class EmployeesList extends React.Component {
                         return <li key={employee._id}><Link to={`/employees/${employee._id}`}>{employee.name}</Link> {employee.mobile} {employee.email} {employee._id}</li>
                     })}
                 </ul>
-                <Link to='/employee/new'>Add Employees</Link>
+                <Link to='/employees/new'>Add Employees</Link>
             </div>
         )
     }
