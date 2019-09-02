@@ -23,8 +23,8 @@ class TicketHome extends React.Component {
                 }
                 else {
                     console.log('data....', response.data)
-                    this.setState(prevState=>({
-                        tickets:[...prevState.tickets, ticketData]
+                    this.setState(prevState => ({
+                        tickets: [ticketData, ...prevState.tickets]
                     }))
                 }
             })
@@ -79,4 +79,3 @@ class TicketHome extends React.Component {
 }
 
 export default TicketHome
-
