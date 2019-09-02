@@ -33,7 +33,6 @@ function App() {
           <Route path="/tickets" component={TicketHome} />
         </Switch>
 
-
       </div>
     </BrowserRouter>
   );
