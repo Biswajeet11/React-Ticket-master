@@ -8,8 +8,7 @@ import EmployeeNew from './components/employees/New';
 import EmployeeShow from './components/employees/EmployeeShow';
 import CustomerEdit from './components/customer/Edit';
 import CustomerShow from './components/customer/Show';
-import TicketForm from './components/tickets/Ticket-form';
-
+import TicketHome from './components/tickets/Ticket-home';
 
 function App() {
   return (
@@ -31,7 +30,7 @@ function App() {
           <Route path="/employees" component={EmployeesList} />
           <Route path="/employees/:id" component={EmployeeShow} />
           <Route path="/employees/new" component={EmployeeNew} />
-          <Route path="/tickets" component={TicketForm} />
+          <Route path="/tickets" component={TicketHome} />
         </Switch>
 
 
