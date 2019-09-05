@@ -12,7 +12,7 @@ class TicketRows extends React.Component {
 			<nav className="nav nav-pills flex-column flex-sm-row">
 				<button type="button" className="btn btn-outline-info" onClick={() => {
 					this.changeTabs()
-				}}>helloo</button>
+				}}>{this.props.name}</button>
 			</nav>
 		)
 	}
