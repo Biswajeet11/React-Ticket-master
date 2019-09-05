@@ -11,6 +11,10 @@ class TicketHome extends React.Component {
             tickets: [],
             buttonsTabs: ['All', 'High', 'Medium', 'Low'],
             labels: ['high', 'medium', 'low'],
+            datasets: [{
+                data: [20, 10, 9],
+                backgroundColor: ['red', 'blue', 'green']
+            }],
             filteredTickets: [],
             buttonsTab: ''
         }
@@ -94,7 +98,10 @@ class TicketHome extends React.Component {
                 </table>
                 <h3>Some Stats</h3>
                 <h4>Ticket Priority %</h4>
-                <PieChartComponent/>
+                <PieChartComponent data={{
+                    labels:this.state.labels,
+                    datasets:this.state.datasets
+                }}/>
             </div>
         )
     }

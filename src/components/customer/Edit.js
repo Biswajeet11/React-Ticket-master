@@ -1,7 +1,6 @@
 import React from 'react' 
 import CustomerForm from './Form'
 import axios from '../config/Axios';
-import _ from 'lodash'
 class CustomerEdit extends React.Component {
     constructor() {
         console.log('constructor - customer edit')
