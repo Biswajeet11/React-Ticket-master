@@ -1,15 +1,19 @@
 import React from 'react'
 import TicketForm from './Ticket-form'
-import TicketTabs from './Ticket-tab'
 import TicketTable from './Ticket-table'
 import axios from '../config/Axios'
+import TicketRows from './Ticket-tab';
 class TicketHome extends React.Component {
     constructor() {
         super()
         this.state = {
-            tickets: []
+            tickets: [],
+            buttonsTabs: ['All', 'High', 'Medium', 'Low'],
+            filteredTickets: [],
+            buttonsTab: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.changeTabs = this.changeTabs.bind(this)
     }
     handleSubmit(ticketData) {
         axios.post('/tickets', ticketData, {
@@ -18,20 +22,15 @@ class TicketHome extends React.Component {
             },
         })
             .then(response => {
-                if (!response.data) {
-                    console.log('the errors are...')
-                }
-                else {
-                    console.log('data....', response.data)
-                    this.setState(prevState => ({
-                        tickets: [ticketData, ...prevState.tickets]
-                    }))
-                }
+                this.setState(prevState => ({
+                    filteredTickets:[ticketData, ...prevState.filteredTickets]
+                }))
             })
             .catch(err => {
-                console.log('The error is.....', err)
+                console.log(err)
             })
     }
+
     componentDidMount() {
         axios.get('/tickets', {
             headers: {
@@ -39,16 +38,33 @@ class TicketHome extends React.Component {
             },
         })
             .then(response => {
-                console.log('component did mount', response.data)
-                this.setState({ tickets: response.data })
+                this.setState({ tickets: response.data, filteredTickets: response.data })
             })
     }
+
+    changeTabs(index) {
+        this.setState({ buttonsTab: index })
+        if (index > 0) {
+            const ticketFilter = this.state.tickets.filter(ticket => {
+                return ticket.priority === this.state.buttonsTabs[index]
+            })
+            this.setState({ filteredTickets: ticketFilter })
+        }
+        else {
+            this.setState({ filteredTickets: this.state.tickets })
+        }
+
+    }
+
     render() {
-        console.log('the ticket home', this.state)
         return (
             <div>
-                <TicketTabs />
-                <h2>Listing Tickets {this.state.tickets.length}</h2>
+                {this.state.buttonsTabs.map((buttonsTab, index) => {
+                    return (
+                        <TicketRows key={index} name={buttonsTab} changeTabs={() => { this.changeTabs(index) }} />
+                    )
+                })}
+                <h2>Listing Tickets {this.state.filteredTickets.length}</h2>
                 <TicketForm handleSubmit={this.handleSubmit} />
                 <table >
                     <thead >
@@ -61,9 +77,10 @@ class TicketHome extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.tickets && this.state.tickets.map((ticket) => {
+                        {this.state.filteredTickets && this.state.filteredTickets.map((ticket, index) => {
                             return (
-                                <TicketTable key={ticket._id}
+                                <TicketTable
+                                    key={index}
                                     code={ticket.code}
                                     customer={ticket.customer}
                                     department={ticket.department}
@@ -79,3 +96,4 @@ class TicketHome extends React.Component {
 }
 
 export default TicketHome
+

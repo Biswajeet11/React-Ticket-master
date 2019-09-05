@@ -1,13 +1,20 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-function TicketTabs() {
-	return (
-		<nav className="nav nav-pills flex-column flex-sm-row">
-			<Link to='/tickets' className="flex-sm-fill text-sm-center nav-link">All</Link>
-			<Link to='/tickets/high' className="flex-sm-fill text-sm-center nav-link">High</Link>
-			<Link to='/tickets/medium' className="flex-sm-fill text-sm-center nav-link" >Medium</Link>
-			<Link to='/tickets/low' className="flex-sm-fill text-sm-center nav-link" >Low</Link>
-		</nav>
-	)
+class TicketRows extends React.Component {
+	constructor() {
+		super()
+		this.changeTabs = this.changeTabs.bind(this)
+	}
+	changeTabs(index) {
+		this.props.changeTabs(index)
+	}
+	render() {
+		return (
+			<nav className="nav nav-pills flex-column flex-sm-row">
+				<button type="button" className="btn btn-outline-info" onClick={() => {
+					this.changeTabs()
+				}}>helloo</button>
+			</nav>
+		)
+	}
 }
-export default TicketTabs
+export default TicketRows
