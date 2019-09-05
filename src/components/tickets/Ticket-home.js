@@ -3,12 +3,14 @@ import TicketForm from './Ticket-form'
 import TicketTable from './Ticket-table'
 import axios from '../config/Axios'
 import TicketRows from './Ticket-tab';
+import PieChartComponent from '../charts/Pie-chart';
 class TicketHome extends React.Component {
     constructor() {
         super()
         this.state = {
             tickets: [],
             buttonsTabs: ['All', 'High', 'Medium', 'Low'],
+            labels: ['high', 'medium', 'low'],
             filteredTickets: [],
             buttonsTab: ''
         }
@@ -90,6 +92,9 @@ class TicketHome extends React.Component {
                         })}
                     </tbody>
                 </table>
+                <h3>Some Stats</h3>
+                <h4>Ticket Priority %</h4>
+                <PieChartComponent/>
             </div>
         )
     }
