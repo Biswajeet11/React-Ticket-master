@@ -1,4 +1,4 @@
-import { Pie } from 'react-chartjs-2'
+import { Pie ,Doughnut} from 'react-chartjs-2'
 import React from 'react'
 
 class PieChartComponent extends React.Component {

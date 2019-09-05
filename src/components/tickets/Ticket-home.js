@@ -4,6 +4,7 @@ import TicketTable from './Ticket-table'
 import axios from '../config/Axios'
 import TicketRows from './Ticket-tab';
 import PieChartComponent from '../charts/Pie-chart';
+import HelloChart from '../charts/Bar-chart';
 class TicketHome extends React.Component {
     constructor() {
         super()
@@ -98,10 +99,8 @@ class TicketHome extends React.Component {
                 </table>
                 <h3>Some Stats</h3>
                 <h4>Ticket Priority %</h4>
-                <PieChartComponent data={{
-                    labels:this.state.labels,
-                    datasets:this.state.datasets
-                }}/>
+                <PieChartComponent />
+                <HelloChart/>
             </div>
         )
     }
