@@ -13,7 +13,7 @@ class TicketHome extends React.Component {
             buttonsTabs: ['All', 'High', 'Medium', 'Low'],
             labels: ['high', 'medium', 'low'],
             datasets: [{
-                data: [20, 10, 9],
+                data: [0, 0, 0],
                 backgroundColor: ['red', 'blue', 'green']
             }],
             filteredTickets: [],
@@ -30,7 +30,7 @@ class TicketHome extends React.Component {
         })
             .then(response => {
                 this.setState(prevState => ({
-                    filteredTickets:[ticketData, ...prevState.filteredTickets]
+                    filteredTickets: [ticketData, ...prevState.filteredTickets]
                 }))
             })
             .catch(err => {
@@ -45,6 +45,18 @@ class TicketHome extends React.Component {
             },
         })
             .then(response => {
+                console.log('response ...', response.data)
+                const dataset = response.data.forEach((res) => {
+                    if (res.priority === 'high' || res.priority === 'High') {
+                        this.state.datasets[0].data[0] += 1
+                    }
+                    else if (res.priority === 'medium' || res.priority === 'Medium') {
+                        this.state.datasets[0].data[1] += 1
+                    }
+                    else {
+                        this.state.datasets[0].data[2] += 1
+                    }
+                })
                 this.setState({ tickets: response.data, filteredTickets: response.data })
             })
     }
@@ -99,8 +111,8 @@ class TicketHome extends React.Component {
                 </table>
                 <h3>Some Stats</h3>
                 <h4>Ticket Priority %</h4>
-                <PieChartComponent />
-                <HelloChart/>
+                <PieChartComponent labels={this.state.labels} datasets={this.state.datasets} />
+                <HelloChart />
             </div>
         )
     }
