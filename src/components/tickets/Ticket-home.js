@@ -21,6 +21,7 @@ class TicketHome extends React.Component {
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.changeTabs = this.changeTabs.bind(this)
+        this.toggleChange = this.toggleChange.bind(this)
     }
     handleSubmit(ticketData) {
         axios.post('/tickets', ticketData, {
@@ -36,6 +37,10 @@ class TicketHome extends React.Component {
             .catch(err => {
                 console.log(err)
             })
+    }
+
+    toggleChange(checked) {
+        console.log('checked is ....', checked)
     }
 
     componentDidMount() {
@@ -104,7 +109,9 @@ class TicketHome extends React.Component {
                                     customer={ticket.customer}
                                     department={ticket.department}
                                     priority={ticket.priority}
-                                    message={ticket.message} />
+                                    message={ticket.message}
+                                    toggleChange={this.toggleChange}
+                                />
                             )
                         })}
                     </tbody>
