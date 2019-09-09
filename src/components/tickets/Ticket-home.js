@@ -5,6 +5,7 @@ import axios from '../config/Axios'
 import TicketRows from './Ticket-tab';
 import PieChartComponent from '../charts/Pie-chart';
 import HelloChart from '../charts/Bar-chart';
+import ProgressBar from './Ticket-progress';
 class TicketHome extends React.Component {
     constructor() {
         super()
@@ -17,7 +18,8 @@ class TicketHome extends React.Component {
                 backgroundColor: ['red', 'blue', 'green']
             }],
             filteredTickets: [],
-            buttonsTab: ''
+            buttonsTab: '',
+            checkedLength: 0,
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.changeTabs = this.changeTabs.bind(this)
@@ -118,6 +120,7 @@ class TicketHome extends React.Component {
                 </table>
                 <h3>Some Stats</h3>
                 <h4>Ticket Priority %</h4>
+                <ProgressBar percent={50} />
                 <PieChartComponent labels={this.state.labels} datasets={this.state.datasets} />
                 <HelloChart />
             </div>
