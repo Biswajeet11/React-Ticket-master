@@ -1,16 +1,26 @@
 import React from 'react'
 class TicketTable extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
-			isChecked: false,
+			isResolved: props.isResolved,
 		}
 	}
 	toggleChange = (checked) => {
 		this.setState({
-			isChecked: !this.state.isChecked,
+			isResolved: !this.state.isResolved,
 		})
-		this.props.toggleChange(checked)
+		const checkData = {
+			id: this.props.id,
+			isResolved: checked,
+			code: this.props.code,
+			customer: this.props.customer,
+			department: this.props.department,
+			message: this.props.message,
+			priority: this.props.priority
+		}
+		this.props.toggleChange(checkData)
+		console.log(this.props, 'the prop is..')
 	}
 	render() {
 		return (
@@ -20,7 +30,7 @@ class TicketTable extends React.Component {
 				<td>{this.props.department}</td>
 				<td>{this.props.priority}</td>
 				<td>{this.props.message}</td>
-				<td><input type="checkbox" checked={this.state.isChecked} onChange={() => { this.toggleChange(!this.state.isChecked) }} /></td>
+				<td><input type="checkbox" checked={this.state.isResolved} onChange={() => { this.toggleChange(!this.state.isResolved) }} /></td>
 			</tr>
 		)
 	}

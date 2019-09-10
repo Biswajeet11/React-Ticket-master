@@ -19,7 +19,8 @@ class TicketHome extends React.Component {
             }],
             filteredTickets: [],
             buttonsTab: '',
-            checkedLength: 0,
+						trueDataLength: 0,
+						progressLength:0
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.changeTabs = this.changeTabs.bind(this)
@@ -31,7 +32,7 @@ class TicketHome extends React.Component {
                 'x-auth': localStorage.getItem('token')
             },
         })
-            .then(response => {
+            .then(() => {
                 this.setState(prevState => ({
                     filteredTickets: [ticketData, ...prevState.filteredTickets]
                 }))
@@ -42,7 +43,26 @@ class TicketHome extends React.Component {
     }
 
     toggleChange(checked) {
-        console.log('checked is ....', checked)
+				console.log('checked is ....', checked.isResolved)
+				const idData=checked.id
+				console.log('id is ....', idData)
+				axios.put(`/tickets/${idData}`, checked, {
+					headers: {
+							'x-auth' : localStorage.getItem('token')
+					}
+			})
+			.then((response)=>{
+				console.log(response.data)
+				const trueData=this.state.filteredTickets.filter((tickets)=>{
+					return tickets.isResolved === true
+				})
+				const trueDataLength=trueData.length
+				this.setState({trueDataLength})
+				const progressLength=Math.round((this.state.trueDataLength/this.state.filteredTickets.length)*100)
+				this.setState({progressLength})
+				console.log('The progressData is ',progressLength)
+				console.log('The trueData is ',this.state.trueDataLength)
+			})
     }
 
     componentDidMount() {
@@ -79,7 +99,6 @@ class TicketHome extends React.Component {
         else {
             this.setState({ filteredTickets: this.state.tickets })
         }
-
     }
 
     render() {
@@ -104,15 +123,18 @@ class TicketHome extends React.Component {
                     </thead>
                     <tbody>
                         {this.state.filteredTickets && this.state.filteredTickets.map((ticket, index) => {
+													console.log(ticket.isResolved,'isresolved......')
                             return (
                                 <TicketTable
-                                    key={index}
+																		key={ticket._id}
+																		id={ticket._id}
                                     code={ticket.code}
                                     customer={ticket.customer}
                                     department={ticket.department}
                                     priority={ticket.priority}
                                     message={ticket.message}
-                                    toggleChange={this.toggleChange}
+																		isResolved={ticket.isResolved}
+																		toggleChange={this.toggleChange}
                                 />
                             )
                         })}
@@ -120,7 +142,7 @@ class TicketHome extends React.Component {
                 </table>
                 <h3>Some Stats</h3>
                 <h4>Ticket Priority %</h4>
-                <ProgressBar percent={50} />
+                <ProgressBar percent={this.state.progressLength} />
                 <PieChartComponent labels={this.state.labels} datasets={this.state.datasets} />
                 <HelloChart />
             </div>
